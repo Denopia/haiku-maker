@@ -1,0 +1,54 @@
+1,,,,2,,,,,,3,,,,,Writer
+Noun,,,,Verb,Pronoun,Noun,,,,Adverb,,,,,
+The wren,,,,Earns,his,living,,,,Noiselessly,,,,,Kobayahsi Issa
+,,,,,,,,,,,,,,,
+Preposition,Noun,Preposition,Noun,Noun,Verb,Noun,,,,Preposition,Noun,,,,
+From,time,to,time,The clouds,give,rest,,,,to,the moon-beholders,,,,Matsuo Bashō
+,,,,,,,,,,,,,,,
+Adjective,Noun,,,Noun,Verb,Adjective,,,,Preposition,Noun,,,,
+Over-ripe,sushi,,,The Master,is,full,,,,of,regret,,,,Yosa Buson
+,,,,,,,,,,,,,,,
+Verb,Pronoun,,,Adverb,Noun,Pronoun,Verb,Noun,,Conjunction,Noun,,,,
+Consider,me,,,As,one,who,Loved,poetry,,and,permissions,,,,Masaoaka Shinki
+,,,,,,,,,,,,,,,
+Preposition,Pronoun,Noun,,Pronoun,Noun,Verb,Verb,,,Adverb,Adverb,Noun,Verb,Verb,
+In,the cicada's,cry,,No,sign,can,foretell,,,How,soon,it,must,die,Matsuo Bashō
+,,,,,,,,,,,,,,,
+Verb,Preposition,Noun,,Adjective,Noun,Verb,,,,Preposition,Noun,,,,
+Blowing,from,the west,,Fallen,leaves,gather,,,,In,the east,,,,Yosa Buson
+,,,,,,,,,,,,,,,
+Noun,Noun,,,Verb,Pronoun,Noun,,,,Preposition,Noun,Preposition,Noun,,
+Winter,seclusion,,,Listening,that,evening,,,,To,the rain,in,the mountains,,Kobayahsi Issa
+,,,,,,,,,,,,,,,
+Verb,Verb,Noun,,Noun,Noun,Pronoun,,,,Verb,Adverb,,,,
+Don't,weep,insects,,Lovers,stars,themselves,,,,Must,apart,,,,Kobayahsi Issa
+,,,,,,,,,,,,,,,
+Pronoun,Noun,,,Adverb,Adverb,Adjective,Preposition,Noun,Verb,Noun,Verb,Adjective,,,
+My,life,,,How,much,more,of,it,remains,The night,is,brief,,,Masoka Shiki
+,,,,,,,,,,,,,,,
+Pronoun,Adjective,Adjective,Noun,Noun,Verb,Preposition,Noun,Noun,Noun,Adverb,,,,,
+An,old,silent,pond,A frog,jumps,into,the pond,splash,Silence,again,,,,,Matsuo Bashō
+,,,,,,,,,,,,,,,
+Pronoun,Verb,Noun,,Adverb,Verb,Pronoun,Noun,Noun,,Verb,Verb,,,,
+I,kill,an ant,,and,realize,my,three,children,,have been,watching,,,,Kato Shuson
+,,,,,,,,,,,,,,,
+Adverb,Adjective,,,Noun,Noun,Verb,Adverb,,,Preposition,Noun,Noun,Verb,,
+Over,the wintry,,,forest,winds,howl,in rage,,,With,no,leaves,to blow,,Natsume Soseki
+,,,,,,,,,,,,,,,
+Pronoun,Noun,,,Preposition,Noun,Preposition,Noun,,,Noun,Verb,Verb,,,
+Sparrow's,child,,,out of,the way,out of,the way,,,The stallion,is,coming,through,,Kobayahsi Issa
+,,,,,,,,,,,,,,,
+Preposition,Pronoun,Noun,,Pronoun,Verb,Noun,Adjective,,,Preposition,Noun,Preposition,Noun,,
+Towards,those,trees,,we,saw,A hawk,descending,,,on,a day,in,spring,,Masaoaka Shinki
+,,,,,,,,,,,,,,,
+Pronoun,Verb,,,Preposition,Pronoun,Noun,Preposition,Pronoun,,Pronoun,Noun,Noun,,,
+No one,travels,,,along,this,way,but,I,,This,autumn,evening,,,Matsuo Bashō
+,,,,,,,,,,,,,,,
+Preposition,Noun,Noun,,Pronoun,Adjective,Noun,,,,Pronoun,Adjective,Noun,,,
+In,the twilight,rain,,these,Brilliant-hued,hibiscus,,,,A,lovely,sunset,,,Matsuo Bashō
+,,,,,,,,,,,,,,,
+Adjective,Noun,Noun,,Noun,Pronoun,Verb,Preposition,,,Verb,Pronoun,Noun,Noun,,
+First,autumn,morning,,The mirror,I,stare,into,,,shows,my,father's,face,,Murakami Kijo
+,,,,,,,,,,,,,,,
+Noun,Adverb,Adverb,,Adjective,Noun,Verb,,,,Noun,Noun,,,,
+The lamp,once,out,,Cool,stars,enter,,,,The window,frame,,,,Natsume Soseki
