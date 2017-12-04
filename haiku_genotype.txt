@@ -1,0 +1,9 @@
+Haiku genotype is a dictionary
+
+{'L1':[(word11, pos_tag11, syllable_count11),(word12, pos_tag12, syllable_count12),...],
+ 'L2':[(word21, pos_tag21, syllable_count21),(word22, pos_tag22, syllable_count22),...], 
+ 'L3':[(word31, pos_tag31, syllable_count31),(word32, pos_tag32, syllable_count32),...]}
+ 
+Where wordij is the jth word on the ith line,
+pos_tagij is the part-of-speech tag of the jth word on the ith line, and
+syllable_countij is the syllable count of the jth word on the ith line.
