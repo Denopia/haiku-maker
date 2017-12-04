@@ -97,5 +97,8 @@ def selectWords(haiku_model=None):
     
     return haiku_genotype
 
+'''
+Some test to see how it works
+'''
 #selectWords()
 #selectWords(haiku_model)

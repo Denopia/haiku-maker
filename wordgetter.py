@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Dec  3 11:08:30 2017
-
 @author: ittobor
+
 """
-import worddominator
+#import worddominator
+from worddom import WordDom
 import random
 import json
 
@@ -18,7 +19,7 @@ def __rndDictVal(dict):
     return retval
 
 '''
-Get word_dict and randomly selecting a word.
+Get word_dict and randomly selecting a word from it.
 Input parameter word_type and syllable_count can be used to guide to find a
 random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
@@ -26,19 +27,25 @@ from same word_type. If not found then word_type is chosen new at random.
 '''
 def getAword(word_type=None, syllable_count=None):
     
-    word_dict = worddominator.wordDominator()
+    wd = WordDom()
+    word_dict = wd.getWordsDict() #word_dict = worddominator.wordDominator()
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
+    # store original syllable_count to be used if word_type will be changed
     og_sc = syllable_count
     ok_wt = False
     ok_sc = False
     word = None
 
+    # Both 'matches' by word_type and syllable_count has to be found
+    # 10 searches for both --> if not found exception raised
     while ok_wt == False or ok_sc == False:    
-        # randomly selecting word type if none is given
+
+        # randomly selecting word_type if none is given
         if word_type is None:
             word_type = __rndDictVal(word_dict)
         
+        # search by word_type
         c_wts = 0
         word_type_words = {}
         while ok_wt == False:
@@ -53,12 +60,15 @@ def getAword(word_type=None, syllable_count=None):
         
 #        print(word_type, '\n', json.dumps(word_type_words, indent=2))
         
+        # return original syllable_count (if word_type was changed)
         syllable_count = og_sc
         
+        # randomly selecting syllable_count if none is given
         if syllable_count is None:
             syllable_count = __rndDictVal(word_type_words)
 #        print(syllable_count)
     
+        # search by syllable_count
         c_scs = 0
         while ok_sc == False:
             c_scs = c_scs + 1
@@ -80,6 +90,10 @@ def getAword(word_type=None, syllable_count=None):
     
     return (word, word_type, syllable_count)
 
+'''
+Some tests to see what random finds according to syllable lenght.
+And for a some word_type. 
+'''
 #print("wt, sc, random: ", getAword())
 #print("sb=1, wt random: ", getAword(syllable_count=1))
 #print("sb=2, wt random: ", getAword(syllable_count=2))
