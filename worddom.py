@@ -226,3 +226,6 @@ class WordDom:
     
     def getWordTypesMC(self):
         return self.word_types_mc
+    
+    def getWordTypesList(self):
+        return self.tag_list

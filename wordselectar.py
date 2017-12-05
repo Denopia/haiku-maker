@@ -6,6 +6,7 @@ Created on Sun Dec  3 14:55:36 2017
 @author: ittobor
 """
 
+from worddom import WordDom
 import wordgetter
 import json
 
@@ -31,6 +32,7 @@ Usage of a haiku_model not implemented yet.
   
 '''
 def selectWords(haiku_model=None):
+    wd = WordDom()
     print("haiku model used \n", json.dumps(haiku_model, indent=2))
 
     haiku_genotype = {
@@ -44,8 +46,9 @@ def selectWords(haiku_model=None):
     '''
     ok_l1 = False
     sc_l1 = 5
+    prev_word_type = None
     while ok_l1 == False:
-        word = wordgetter.getAword()
+        word = wordgetter.getAword(word_type = prev_word_type, word_dom = wd)
         print(word)
         
         len_w = word[2]
@@ -53,6 +56,7 @@ def selectWords(haiku_model=None):
         if len_w <= sc_l1:
            haiku_genotype['L1'].append(word)
            sc_l1 = sc_l1 - len_w
+           prev_word_type = word[1]
         
         if sc_l1 == 0:
             ok_l1 = True
@@ -63,7 +67,7 @@ def selectWords(haiku_model=None):
     ok_l2 = False
     sc_l2 = 7
     while ok_l2 == False:
-        word = wordgetter.getAword()
+        word = wordgetter.getAword(word_type = prev_word_type, word_dom = wd)
         print(word)
         
         len_w = word[2]
@@ -71,6 +75,7 @@ def selectWords(haiku_model=None):
         if len_w <= sc_l2:
            haiku_genotype['L2'].append(word)
            sc_l2 = sc_l2 - len_w
+           prev_word_type = word[1]
         
         if sc_l2 == 0:
             ok_l2 = True
@@ -79,9 +84,9 @@ def selectWords(haiku_model=None):
     generate line3
     '''
     ok_l3 = False
-    sc_l3 = 7
+    sc_l3 = 5
     while ok_l3 == False:
-        word = wordgetter.getAword()
+        word = wordgetter.getAword(word_type = prev_word_type, word_dom = wd)
         print(word)
         
         len_w = word[2]
@@ -89,6 +94,7 @@ def selectWords(haiku_model=None):
         if len_w <= sc_l3:
            haiku_genotype['L3'].append(word)
            sc_l3 = sc_l3 - len_w
+           prev_word_type = word[1]
         
         if sc_l3 == 0:
             ok_l3 = True

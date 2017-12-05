@@ -9,6 +9,8 @@ Created on Sun Dec  3 11:08:30 2017
 from worddom import WordDom
 import random
 import json
+import operator
+import random
 
 '''
 Randomly select key from dict.
@@ -25,9 +27,10 @@ random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
 from same word_type. If not found then word_type is chosen new at random.
 '''
-def getAword(word_type=None, syllable_count=None):
+def getAword(word_dom, word_type=None, syllable_count=None):
     
-    wd = WordDom()
+    wd = word_dom
+    word_type_markov = wd.getWordTypesMC()
     word_dict = wd.getWordsDict() #word_dict = worddominator.wordDominator()
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
@@ -44,7 +47,8 @@ def getAword(word_type=None, syllable_count=None):
         # randomly selecting word_type if none is given
         if word_type is None:
             word_type = __rndDictVal(word_dict)
-        
+        else:
+            word_type = choose_next_word_type(word_type, word_type_markov)
         # search by word_type
         c_wts = 0
         word_type_words = {}
@@ -90,8 +94,27 @@ def getAword(word_type=None, syllable_count=None):
     
     return (word, word_type, syllable_count)
 
+
+def choose_next_word_type(word_type, word_type_markov):
+    possible_word_types = word_type_markov.get(word_type)
+    sorted_pwt = sorted(possible_word_types.items(), key=operator.itemgetter(1), reverse=True)
+    cdf = []
+    cumulative_sum = 0.0
+    for c, prob in sorted_pwt:
+        cumulative_sum += prob
+        cdf.append([c, cumulative_sum])
+    cdf[-1][1] = 1.0
+    rnd = random.random()
+    cp = cdf[0][1]
+    i = 0
+    while rnd > cp:
+        i += 1
+        cp = cdf[i][1]
+    next_word_type = cdf[i][0]
+    
+    return next_word_type
 '''
-Some tests to see what random finds according to syllable lenght.
+Some tests to see what random finds according to syllable length.
 And for a some word_type. 
 '''
 #print("wt, sc, random: ", getAword())

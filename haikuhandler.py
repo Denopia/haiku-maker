@@ -8,7 +8,7 @@ Created on Sun Dec  3 23:37:29 2017
 import json
 import nltk
 import pronouncing
-import evaluator
+import pos_evaluator
 
 """
 Creates a nice looking json file of existing
@@ -118,7 +118,7 @@ def make_pos_group_json(haiku_poems_json, output_file_name):
     hid = 0
     pos_groups = {}
     for key,poem in poems.items():
-        pos_groups[hid] = evaluator.count_tag_groups(evaluator.count_all_pos_tags(poem['genotype_form']))
+        pos_groups[hid] = pos_evaluator.count_tag_groups(pos_evaluator.count_all_pos_tags(poem['genotype_form']))
         hid = hid + 1
     with open(output_file_name, 'w') as outfile:  
         json.dump(pos_groups, outfile, indent=4)
