@@ -27,10 +27,11 @@ random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
 from same word_type. If not found then word_type is chosen new at random.
 '''
-def getAword(word_dom, word_type=None, syllable_count=None):
+def getAword(word_dom, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
     
     wd = word_dom
-    word_type_markov = wd.getWordTypesMC()
+    word_type_markov1 = wd.getWordTypes1stMC()
+    word_type_markov2 = wd.getWordTypes2ndMC()
     word_dict = wd.getWordsDict() #word_dict = worddominator.wordDominator()
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
@@ -45,10 +46,10 @@ def getAword(word_dom, word_type=None, syllable_count=None):
     while ok_wt == False or ok_sc == False:    
 
         # randomly selecting word_type if none is given
-        if word_type is None:
+        if prev_word_type is None:
             word_type = __rndDictVal(word_dict)
         else:
-            word_type = choose_next_word_type(word_type, word_type_markov)
+            word_type = choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1, word_type_markov2)
         # search by word_type
         c_wts = 0
         word_type_words = {}
@@ -95,8 +96,19 @@ def getAword(word_dom, word_type=None, syllable_count=None):
     return (word, word_type, syllable_count)
 
 
-def choose_next_word_type(word_type, word_type_markov):
-    possible_word_types = word_type_markov.get(word_type)
+def choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1, word_type_markov2):
+    if prev_prev_word_type is None:
+        #print("2nd is None")
+        possible_word_types = word_type_markov1.get(prev_word_type, None)
+        if possible_word_types is None:
+            #print("No 1st order types")
+            return 'NN'
+    else:
+        key = prev_prev_word_type + " " + prev_word_type
+        possible_word_types = word_type_markov2.get(key, None)
+        if possible_word_types is None:
+            #print("No 2nd order types")
+            possible_word_types = word_type_markov1.get(prev_word_type, None)
     sorted_pwt = sorted(possible_word_types.items(), key=operator.itemgetter(1), reverse=True)
     cdf = []
     cumulative_sum = 0.0
@@ -112,7 +124,7 @@ def choose_next_word_type(word_type, word_type_markov):
         cp = cdf[i][1]
     next_word_type = cdf[i][0]
     
-    return next_word_type
+    return next_word_type.split(" ")[-1]
 '''
 Some tests to see what random finds according to syllable length.
 And for a some word_type. 
