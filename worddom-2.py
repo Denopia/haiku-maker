@@ -71,15 +71,16 @@ import json
 
 class WordDom:
     
-    def __readTextFile(self, text_file='alice.txt'):
+    def __readTextFile(self, text_file='alice.txt', text_file2 = "alice.txt"):
         self.text_raw = None
         self.tok_text = None
         self.pos_text = None
         with open(text_file, 'r', encoding='utf8') as f:
             self.text_raw = f.read()
+        with open(text_file2, 'r', encoding='utf8') as f:
+            self.text_raw_mc = f.read()
 
-    def __init__(self, text_file='alice.txt'):
-        print('__init__')
+    def __init__(self, text_file='top18.txt', text_file2='top18.txt'):
         self.tag_list = [
                         'CC',
                         'CD',
@@ -119,11 +120,14 @@ class WordDom:
                         'WRB'
                         ]
         self.text_raw = None
+        self.text_raw_mc = None
         self.tok_text = None
         self.pos_text = None
         self.words_dict = {}
+        self.word_types_mc = {}
+        self.word_types_mc2 = {}
 
-        self.__readTextFile(text_file)
+        self.__readTextFile(text_file, text_file2)
         self.__addTo()
             
     def __addTo(self):
@@ -132,14 +136,10 @@ class WordDom:
     
         for word, tag in self.pos_text:
             if tag in self.tag_list:
-                if tag == 'LS':
-                    print("1: ", word, tag)
                 if wordnet.synsets(word):
                     
                     if tag not in self.words_dict:
                         self.words_dict[tag] = {}
-                    
-                    word = word.lower()
                     
                     pro_list = pronouncing.phones_for_word(word)
                     if (len(pro_list)>0):
@@ -152,7 +152,95 @@ class WordDom:
                     
                     if word not in self.words_dict[tag][sy_count]:
                         self.words_dict[tag][sy_count].append(word)
-                                
+
+        # Tokenize the text into sentences.
+        sentences = nltk.sent_tokenize(self.text_raw_mc)
+
+        # Tokenize each sentence to words. Each item in 'words' is a list with
+        # tokenized words from that list.
+        tokenized_sentences = []
+        for s in sentences:
+            w = nltk.word_tokenize(s)
+            tokenized_sentences.append(w)
+
+        sanitized_sentences = []
+        for ts in tokenized_sentences:
+            word_pos_sentence = nltk.pos_tag(ts)
+            pos_sentence = []
+            #print(word_pos_sentence)
+            for word, tag in word_pos_sentence:
+                if tag in self.tag_list:
+                    if wordnet.synsets(word):
+                        pos_sentence.append(tag)
+            sanitized_sentences.append(pos_sentence)
+
+        # Now we are ready to create the state transitions. However, this time we
+        # count the state transitions from each sentence at a time. And we also take
+        # the order into account when coupling the states.
+        transitions = {}
+        order = 1
+        for data in sanitized_sentences:
+            for i in range(len(data)-order):
+                pred = ' '.join(data[i:i+order])
+                succ = ' '.join(data[i+1:i+1+order])         
+                if pred not in transitions:
+                    # Predecessor key is not yet in the outer dictionary, so we create
+                    # a new dictionary for it.
+                    transitions[pred] = {}
+            
+                if succ not in transitions[pred]:
+                    # Successor key is not yet in the inner dictionary, so we start
+                    # counting from one.
+                    transitions[pred][succ] = 1.0
+                else:
+                    # Otherwise we just add one to the existing value.
+                    transitions[pred][succ] += 1.0
+
+        # Compute total number of successors for each state
+        totals = {}
+        for pred, succ_counts in transitions.items():
+            totals[pred] = sum(succ_counts.values())
+
+        # Compute the probability for each successor given the predecessor.
+        #probs = {}
+        for pred, succ_counts in transitions.items():
+            self.word_types_mc[pred] = {}
+            for succ, count in succ_counts.items():
+                self.word_types_mc[pred][succ] = count / totals[pred]
+                
+        # Quick and ugly copy-paste for 2nd order markov
+        transitions2 = {}
+        order2 = 2
+        for data2 in sanitized_sentences:
+            for i in range(len(data2)-order2):
+                pred2 = ' '.join(data2[i:i+order2])
+                succ2 = ' '.join(data2[i+1:i+1+order2])         
+                if pred2 not in transitions2:
+                    # Predecessor key is not yet in the outer dictionary, so we create
+                    # a new dictionary for it.
+                    transitions2[pred2] = {}
+            
+                if succ2 not in transitions2[pred2]:
+                    # Successor key is not yet in the inner dictionary, so we start
+                    # counting from one.
+                    transitions2[pred2][succ2] = 1.0
+                else:
+                    # Otherwise we just add one to the existing value.
+                    transitions2[pred2][succ2] += 1.0
+
+        # Compute total number of successors for each state
+        totals2 = {}
+        for pred2, succ_counts2 in transitions2.items():
+            totals2[pred2] = sum(succ_counts2.values())
+
+        # Compute the probability for each successor given the predecessor.
+        #probs = {}
+        for pred2, succ_counts2 in transitions2.items():
+            self.word_types_mc2[pred2] = {}
+            for succ2, count2 in succ_counts2.items():
+                self.word_types_mc2[pred2][succ2] = count2 / totals2[pred2]
+                
+                
 
     def addText(self, text_file="alice.txt"):
         if text_file:
@@ -162,40 +250,23 @@ class WordDom:
     def printWordsDict(self):
         print("words_dict\n",json.dumps(self.words_dict, indent=2))
 
-    def printSelected(self, word_type=None, syllable_count=None, word=None):
-        keylist = list(self.words_dict.keys())
-        result = {}
-        for k in keylist:
-            toadd_k = True
-            if k is not word_type:
-                if word_type is not None:
-                    toadd_k = False
-            
-            if toadd_k == True:
-                sl_list = self.words_dict[k]
-                for sl in list(sl_list.keys()):
-                    toadd_sl = True
-                    if sl is not syllable_count:
-                        if syllable_count is not None:
-                            toadd_sl = False
-                    
-                    if toadd_sl == True:
-                        if word is not None:
-                            if word in sl_list[sl]:
-                                if k not in result:
-                                    result[k] = {}
-                                result[k][sl] = list().append(word)
-                        else:
-                            if k not in result:
-                                result[k] = {}
-                            result[k][sl] = sl_list[sl]
-        print("print select\n",json.dumps(result, indent=2))
+    def printWordTypesMC(self):
+        print("word_types_mc\n",json.dumps(self.word_types_mc, indent=2))
     
     def clearWordsDict(self):
         self.words_dict = {}
-
+        
+    def clearWordTypesMC(self):
+        self.word_types_mc = {}
+    
     def getWordsDict(self):
         return self.words_dict
+    
+    def getWordTypes1stMC(self):
+        return self.word_types_mc
+    
+    def getWordTypes2ndMC(self):
+        return self.word_types_mc2
     
     def getWordTypesList(self):
         return self.tag_list

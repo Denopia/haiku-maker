@@ -7,6 +7,7 @@ Created on Sun Dec  3 11:08:30 2017
 """
 #import worddominator
 from worddom import WordDom
+from wordmc import WordTypeMC
 import random
 import json
 import operator
@@ -27,12 +28,13 @@ random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
 from same word_type. If not found then word_type is chosen new at random.
 '''
-def getAword(word_dom, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
+def getAword(word_dom, word_mc, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
     
     wd = word_dom
-    word_type_markov1 = wd.getWordTypes1stMC()
-    word_type_markov2 = wd.getWordTypes2ndMC()
-    word_dict = wd.getWordsDict() #word_dict = worddominator.wordDominator()
+    mc = word_mc
+    word_type_markov1 = mc.markov_chain(order=1)
+    word_type_markov2 = mc.markov_chain(order=2)
+    word_dict = wd.getWordsDict()
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
     # store original syllable_count to be used if word_type will be changed

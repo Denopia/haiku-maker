@@ -7,6 +7,7 @@ Created on Sun Dec  3 14:55:36 2017
 """
 
 from worddom import WordDom
+from wordmc import WordTypeMC
 import wordgetter
 import json
 
@@ -31,9 +32,10 @@ Each key contains a list of tuples. A tuple is (word, word_type, syllable_count)
 Usage of a haiku_model not implemented yet.
   
 '''
-def selectWords(haiku_model=None):
-    wd = WordDom()
-    print("haiku model used \n", json.dumps(haiku_model, indent=2))
+def selectWords(wd, mc, haiku_model=None):
+#    wd = WordDom('alice.txt')
+#    mc = WordTypeMC('top18.txt')
+#    print("haiku model used \n", json.dumps(haiku_model, indent=2))
 
     haiku_genotype = {
             "L1":[],
@@ -52,8 +54,8 @@ def selectWords(haiku_model=None):
     prev_word_type = None
     prev_prev_word_type = None
     while ok_l1 == False:
-        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd)
-        print(word)
+        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd, word_mc = mc)
+        print("L1 ", word)
         
         len_w = word[2]
         
@@ -72,8 +74,8 @@ def selectWords(haiku_model=None):
     ok_l2 = False
     sc_l2 = 7
     while ok_l2 == False:
-        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd)
-        print(word)
+        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd, word_mc = mc)
+        print("L2 ",word)
         
         len_w = word[2]
         
@@ -92,8 +94,8 @@ def selectWords(haiku_model=None):
     ok_l3 = False
     sc_l3 = 5
     while ok_l3 == False:
-        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd)
-        print(word)
+        word = wordgetter.getAword(prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type, word_dom = wd, word_mc = mc)
+        print("L3 ",word)
         
         len_w = word[2]
         
@@ -110,8 +112,30 @@ def selectWords(haiku_model=None):
     
     return haiku_genotype
 
+def generateNHaiku(nb=10):
+    wd = WordDom('alice.txt')
+    mc = WordTypeMC('top18.txt')
+    
+    
+    with open('generated_haiku_100.txt', 'w') as f:
+        for _ in range(nb):
+            haiku_genotype = selectWords(wd = wd, mc = mc)
+            print("haiku genotype \n", json.dumps(haiku_genotype, indent=2))
+            L1 = []
+            for word, word_type, syllable_count in haiku_genotype['L1']:
+                L1.append(word)
+            L2 = []
+            for word, word_type, syllable_count in haiku_genotype['L2']:
+                L2.append(word)
+            L3 = []
+            for word, word_type, syllable_count in haiku_genotype['L3']:
+                L3.append(word)
+            haiku = " ".join(L1) + "\n" + " ".join(L2) + "\n" + " ".join(L3) + "\n\n"
+            f.write(haiku)
+
 '''
 Some test to see how it works
 '''
+generateNHaiku(nb=2)
 #selectWords()
 #selectWords(haiku_model)
