@@ -132,8 +132,6 @@ class WordDom:
     
         for word, tag in self.pos_text:
             if tag in self.tag_list:
-                if tag == 'LS':
-                    print("1: ", word, tag)
                 if wordnet.synsets(word):
                     
                     if tag not in self.words_dict:

@@ -51,7 +51,7 @@ import nltk
 from nltk.corpus import wordnet
 import json
 
-class WordTypeMC:
+class WordMC:
     
     def __readTextFile(self, text_file='alice.txt'):
         self.text_raw = None
@@ -104,7 +104,66 @@ class WordTypeMC:
         # Read text file in
         self.__readTextFile(text_file)
         
-    def markov_chain(self, text=None, order=1):
+    def word_markov_chain(self, text=None, order=1):
+        
+        if text is not None:
+            self.text_raw = text
+        
+        # Tokenize the text into sentences.
+        sentences = nltk.sent_tokenize(self.text_raw)
+    
+        # Tokenize each sentence to words. Each item in 'words' is a list with
+        # tokenized words from that list.
+        tokenized_sentences = []
+        for s in sentences:
+            w = nltk.word_tokenize(s)
+            tokenized_sentences.append(w)
+    
+        sanitized_sentences = []
+        for ts in tokenized_sentences:
+#            word_pos_sentence = nltk.pos_tag(ts)
+            t_sentence = []
+            for word in ts:
+                if wordnet.synsets(word):
+                    t_sentence.append(word)
+            sanitized_sentences.append(t_sentence)
+    
+        # Now we are ready to create the state transitions. However, this time we
+        # count the state transitions from each sentence at a time. And we also take
+        # the order into account when coupling the states.
+        transitions = {}
+        for data in sanitized_sentences:
+            for i in range(len(data)-order):
+                pred = ' '.join(data[i:i+order])
+                succ = ' '.join(data[i+1:i+1+order])         
+                if pred not in transitions:
+                    # Predecessor key is not yet in the outer dictionary, so we create
+                    # a new dictionary for it.
+                    transitions[pred] = {}
+            
+                if succ not in transitions[pred]:
+                    # Successor key is not yet in the inner dictionary, so we start
+                    # counting from one.
+                    transitions[pred][succ] = 1.0
+                else:
+                    # Otherwise we just add one to the existing value.
+                    transitions[pred][succ] += 1.0
+    
+        # Compute total number of successors for each state
+        totals = {}
+        for pred, succ_counts in transitions.items():
+            totals[pred] = sum(succ_counts.values())
+    
+        # Compute the probability for each successor given the predecessor.
+        word_mc = {}
+        for pred, succ_counts in transitions.items():
+            word_mc[pred] = {}
+            for succ, count in succ_counts.items():
+                word_mc[pred][succ] = count / totals[pred]
+                
+        return word_mc
+
+    def word_type_markov_chain(self, text=None, order=1):
         
         if text is not None:
             self.text_raw = text

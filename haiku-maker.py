@@ -7,7 +7,7 @@ Created on Sun Dec  3 14:55:36 2017
 """
 
 from worddom import WordDom
-from wordmc import WordTypeMC
+from wordmc import WordMC
 import json, random, operator
 
 line1 = 'L1'
@@ -25,6 +25,8 @@ haiku_model = {
             "L3":[('VBN',2), ('VBN',3)]
         }
 
+
+
 '''
 Randomly select key from dict.
 '''
@@ -40,14 +42,12 @@ random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
 from same word_type. If not found then word_type is chosen new at random.
 '''
-def getAword(word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
+def getAword(word_dom, word_type_mc=None, word_mc=None, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
     
-#    wd = word_dom
-#    mc = word_mc
     word_dict = word_dom.getWordsDict()
-    if word_mc is not None:
-        word_type_markov1 = word_mc.markov_chain(order=1)
-        word_type_markov2 = word_mc.markov_chain(order=2)
+    if word_type_mc is not None:
+        word_type_markov1 = word_type_mc.word_type_markov_chain(order=1)
+        word_type_markov2 = word_type_mc.word_type_markov_chain(order=2)
     
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
@@ -141,7 +141,7 @@ def choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1
     
     return next_word_type.split(" ")[-1]
 
-def createLine(syllable_count, word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=None):
+def createLine(syllable_count, word_dom, word_type_mc=None, word_mc=None, prev_word_type=None, prev_prev_word_type=None):
     print("-- CREATE LINE --")
     line_ok = False
     ret_line = []
@@ -152,9 +152,9 @@ def createLine(syllable_count, word_dom, word_mc=None, prev_word_type=None, prev
         ic = ic + 1
 
         if ic > 25:
-            word = getAword(word_dom = word_dom, word_mc = word_mc, syllable_count=sc)
+            word = getAword(word_dom = word_dom, word_type_mc = word_type_mc, word_mc = word_mc, syllable_count=sc)
         else:
-            word = getAword(word_dom = word_dom, word_mc = word_mc, prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type)
+            word = getAword(word_dom = word_dom, word_type_mc = word_type_mc, word_mc = word_mc, prev_word_type = prev_word_type, prev_prev_word_type = prev_prev_word_type)
         print(word)
         
         len_w = word[2]
@@ -162,7 +162,7 @@ def createLine(syllable_count, word_dom, word_mc=None, prev_word_type=None, prev
         if len_w <= sc:
            ret_line.append(word)
            sc = sc - len_w
-           if word_mc is not None:
+           if word_type_mc is not None:
                prev_prev_word_type = prev_word_type
                prev_word_type = word[1]
         
@@ -182,7 +182,7 @@ Each key contains a list of tuples. A tuple is (word, word_type, syllable_count)
 Usage of a haiku_model not implemented yet.
   
 '''
-def generateHaiku(word_dom, word_mc, haiku_model=None):
+def generateHaiku(word_dom, word_type_mc=None, word_mc=None, haiku_model=None):
     
     haiku_genotype = {
             line1:[],
@@ -193,21 +193,21 @@ def generateHaiku(word_dom, word_mc, haiku_model=None):
     '''
     generate line1
     '''
-    line = createLine(syllable_count = 5, word_dom = word_dom, word_mc = word_mc)
+    line = createLine(syllable_count = 5, word_dom = word_dom, word_type_mc = word_type_mc, word_mc = word_mc)
     haiku_genotype[line1] = line
     
 
     '''
     generate line2
     '''
-    line = createLine(syllable_count = 7, word_dom = word_dom, word_mc = word_mc)
+    line = createLine(syllable_count = 7, word_dom = word_dom, word_type_mc = word_type_mc, word_mc = word_mc)
     haiku_genotype[line2] = line
 
 
     '''
     generate line3
     '''
-    line = createLine(syllable_count = 5, word_dom = word_dom, word_mc = word_mc)
+    line = createLine(syllable_count = 5, word_dom = word_dom, word_type_mc = word_type_mc, word_mc = word_mc)
     haiku_genotype[line3] = line
 
 
@@ -232,23 +232,31 @@ def writeHaikuListToFile(haiku_list, out_filename='generated_n_haiku.txt'):
                     haiku = " ".join(L1) + "\n" + " ".join(L2) + "\n" + " ".join(L3) + "\n\n"
                 f.write(haiku)
 
-def generateMultipleHaiku(nb=10):
-    wd = WordDom('alice.txt')
-    mc = WordTypeMC('top18.txt')
-    mc = None
+def generateMultipleHaiku(word_dom, word_type_mc=None, word_mc=None, nb_haiku=10):
     
     haiku_list = []
     
-    for _ in range(nb):
-        haiku_genotype = generateHaiku(word_dom = wd, word_mc = mc)
-        print('generateMultipleHaiku\n', haiku_genotype)
+    for _ in range(nb_haiku):
+        haiku_genotype = generateHaiku(word_dom = word_dom, word_type_mc = word_type_mc)
         haiku_list.append(haiku_genotype)
     
     return haiku_list
 
 def main():
+    nb_haiku = 100
+    word_dom = WordDom('alice.txt')
+    word_type_mc = WordMC('alice.txt')
+    #word_type_mc = WordMC('top18.txt')
+    #word_type_mc = None
+    word_mc = WordMC('alice.txt')
+    word_markov_1 = word_mc.word_markov_chain(order=1)
+    word_markov_2 = word_mc.word_markov_chain(order=2)
+
     haiku_list = []
-    haiku_list = generateMultipleHaiku(nb=10)
+    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_type_mc=word_type_mc, word_mc=word_mc, nb_haiku=nb_haiku)
     writeHaikuListToFile(haiku_list)
+    
+    print("word_markov_1", json.dumps(word_markov_1, indent=2))
+    print("word_markov_2", json.dumps(word_markov_2, indent=2))
 
 main()
