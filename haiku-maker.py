@@ -245,7 +245,7 @@ def generateMultipleHaiku(word_dom, word_type_mc=None, word_mc=None, nb_haiku=10
 def main():
     nb_haiku = 100
     word_dom = WordDom('alice.txt')
-    word_type_mc = WordMC('alice.txt')
+    word_type_mc = WordMC('top18.txt')
     #word_type_mc = WordMC('top18.txt')
     #word_type_mc = None
     word_mc = WordMC('alice.txt')

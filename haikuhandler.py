@@ -8,27 +8,37 @@ Created on Sun Dec  3 23:37:29 2017
 import json
 import nltk
 import pronouncing
-import pos_evaluator
+from nltk.corpus import wordnet
+#import pos_evaluator
 
 """
-Creates a nice looking json file of existing
-'famous' haiku poems to use in evaluation.
+Creates a dictionary of haiku poems from text file.
+Haiku keys are just numbered indexes.
+Each haiku is also a dictionary with fields:
+    - lines
+    - tokenized_lines
+    - pos_tags
+    - syllable_counts
+    - genotype_form
 
-'file_name' is the name of the txt file with
-existing haiku poems.
 
-'output_file_name' is the name of the output
-json file.
+Argument 'file_name' is the name of the 
+txt file with existing haiku poems.
+
+Argument 'output_file_name' is the name
+of the output json file.
+
+Argument 'write' determines if a json file is written.
 
 Each line of txt file must have exactly one
 line of haiku. There must also be an empty 
 line between the last line of a haiku and 
 the first line of another haiku.
 
-example usage: json_from_text("famous_haiku_poems.txt", "fhpj.json")
+example usage: json_from_text("famous_haiku_poems.txt", True, "fhpj.json")
 """
 
-def json_from_text(file_name, output_file_name):
+def json_from_text(file_name = "top18.txt", write = False, output_file_name = 'haiku_test.json'):
     f = open(file_name, "r", encoding="utf-8")
     haiku_poems = f.read()
     f.close()
@@ -41,6 +51,7 @@ def json_from_text(file_name, output_file_name):
     haiku_poems = haiku_poems.replace("?"," ")
     haiku_poems = haiku_poems.replace("."," ")
     haiku_poems = haiku_poems.replace(":"," ")
+    haiku_poems = haiku_poems.rstrip()
     
     haiku_list = haiku_poems.split("\n\n")
     
@@ -48,6 +59,7 @@ def json_from_text(file_name, output_file_name):
     hid = 0
     
     for haiku in haiku_list:
+        #haiku = haiku.rstrip()
         poem = {}
         tokenized_lines = []
         pos_tags = []
@@ -57,22 +69,25 @@ def json_from_text(file_name, output_file_name):
         for line in lines:
             just_tags = []
             syllable_count = []
+            just_words = []
             tokenized_line = nltk.word_tokenize(line)
-            tokenized_lines.append(tokenized_line)
             words_and_tags = nltk.pos_tag(tokenized_line)
             for word, tag in words_and_tags:
-                pro_list = pronouncing.phones_for_word(word)
-                if (len(pro_list) > 0 and word != "'s"):
-                    syllable_count.append(pronouncing.syllable_count(pro_list[0]))
-                elif (word == "'s"):
-                    #special case, adding "'s" to a word doesn't increase syllable count
-                    syllable_count.append(0)
-                else:
-                    #if syllables can't be counted, indicate error as -999
-                    syllable_count.append(-999)
-                just_tags.append(tag)
+                if wordnet.synsets(word):
+                    pro_list = pronouncing.phones_for_word(word)
+                    if (len(pro_list) > 0 and word != "'s"):
+                        syllable_count.append(pronouncing.syllable_count(pro_list[0]))
+                    elif (word == "'s"):
+                        #special case, adding "'s" to a word doesn't increase syllable count
+                        syllable_count.append(0)
+                    else:
+                        #if syllables can't be counted, indicate error as -999
+                        syllable_count.append(-999)
+                    just_tags.append(tag)
+                    just_words.append(word)
             pos_tags.append(just_tags)
             syllable_counts.append(syllable_count)
+            tokenized_lines.append(just_words)
             
         poem["lines"] = lines
         poem["tokenized_lines"] = tokenized_lines
@@ -107,24 +122,8 @@ def json_from_text(file_name, output_file_name):
         
         hd[hid] = poem
         hid = hid + 1
-        
-    with open(output_file_name, 'w') as outfile:  
-        json.dump(hd, outfile, indent=4)
-
-
-def make_pos_group_json(haiku_poems_json, output_file_name):
-    with open(haiku_poems_json) as json_data:
-        poems = json.load(json_data)
-    hid = 0
-    pos_groups = {}
-    for key,poem in poems.items():
-        pos_groups[hid] = pos_evaluator.count_tag_groups(pos_evaluator.count_all_pos_tags(poem['genotype_form']))
-        hid = hid + 1
-    with open(output_file_name, 'w') as outfile:  
-        json.dump(pos_groups, outfile, indent=4)
-    
-    
-    
-    
-    
-    
+      
+    if(write):
+        with open(output_file_name, 'w') as outfile:  
+            json.dump(hd, outfile, indent=4)
+    return hd
