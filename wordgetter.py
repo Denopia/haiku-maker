@@ -6,8 +6,6 @@ Created on Sun Dec  3 11:08:30 2017
 
 """
 #import worddominator
-from worddom import WordDom
-from wordmc import WordTypeMC
 import random
 import json
 import operator
@@ -28,13 +26,15 @@ random word. Since it cannot be quaranteed that the a word from given word_type
 and/or given syllable_count can be found, the function tries to find shorter
 from same word_type. If not found then word_type is chosen new at random.
 '''
-def getAword(word_dom, word_mc, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
+def getAword(word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=None, syllable_count=None):
     
-    wd = word_dom
-    mc = word_mc
-    word_type_markov1 = mc.markov_chain(order=1)
-    word_type_markov2 = mc.markov_chain(order=2)
-    word_dict = wd.getWordsDict()
+#    wd = word_dom
+#    mc = word_mc
+    word_dict = word_dom.getWordsDict()
+    if word_mc is not None:
+        word_type_markov1 = word_mc.markov_chain(order=1)
+        word_type_markov2 = word_mc.markov_chain(order=2)
+    
 #    print(len(word_dict.keys()), type(word_dict.keys()))
 
     # store original syllable_count to be used if word_type will be changed
@@ -100,7 +100,7 @@ def getAword(word_dom, word_mc, prev_word_type=None, prev_prev_word_type=None, s
 
 def choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1, word_type_markov2):
     if prev_prev_word_type is None:
-        #print("2nd is None")
+        #Sprint("2nd is None")
         possible_word_types = word_type_markov1.get(prev_word_type, None)
         if possible_word_types is None:
             #print("No 1st order types")
