@@ -58,7 +58,7 @@ class WordMC:
         with open(text_file, 'r', encoding='utf8') as f:
             self.text_raw = f.read()
 
-    def __init__(self, text_file='alice.txt'):
+    def __init__(self, text_file='alice.txt', highest_order=1):
         self.tag_list = [
                         'CC',
                         'CD',
@@ -97,14 +97,29 @@ class WordMC:
                         'WP$',
                         'WRB'
                         ]
+        self.print_on = True
+
         self.text_raw = None
         self.__readTextFile(text_file)
+        
+        self.word_mc_dict = {}
+        self.word_type_mc_dict = {}
 
-    def initNewTextFile(self, text_file='alice.txt'):    
+        i = 1
+        for _ in range(highest_order):
+            self.word_mc_dict[i] = self.__word_markov_chain(order=i)
+            self.word_type_mc_dict[i] = self.__word_type_markov_chain(order=i)
+            i = i + 1
+            
+        if self.print_on:
+            print(self.word_mc_dict.keys())
+            print(self.word_type_mc_dict.keys())
+        
+    def __initNewTextFile(self, text_file='alice.txt'):    
         # Read text file in
         self.__readTextFile(text_file)
         
-    def word_markov_chain(self, text=None, order=1):
+    def __word_markov_chain(self, text=None, order=1):
         
         if text is not None:
             self.text_raw = text
@@ -163,7 +178,7 @@ class WordMC:
                 
         return word_mc
 
-    def word_type_markov_chain(self, text=None, order=1):
+    def __word_type_markov_chain(self, text=None, order=1):
         
         if text is not None:
             self.text_raw = text
@@ -223,3 +238,9 @@ class WordMC:
                 word_types_mc[pred][succ] = count / totals[pred]
                 
         return word_types_mc
+    
+    def getWord_mc(self, order=1):
+        return self.word_mc_dict[order]
+
+    def getWord_type_mc(self, order=1):
+        return self.word_type_mc_dict[order]

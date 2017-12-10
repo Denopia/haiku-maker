@@ -118,6 +118,8 @@ class WordDom:
                         'WP$',
                         'WRB'
                         ]
+        self.print_on = True
+        
         self.text_raw = None
         self.tok_text = None
         self.pos_text = None
