@@ -118,7 +118,7 @@ class WordDom:
                         'WP$',
                         'WRB'
                         ]
-        self.print_on = True
+        self.print_on = False
         
         self.text_raw = None
         self.tok_text = None

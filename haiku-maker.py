@@ -8,13 +8,14 @@ Created on Sun Dec  3 14:55:36 2017
 
 from worddom import WordDom
 from wordmc import WordMC
+import scoring_tests
 import json, random, operator
 
 line1 = 'L1'
 line2 = 'L2'
 line3 = 'L3'
 
-print_on = True
+print_on = False
 
 
 '''
@@ -250,19 +251,85 @@ def generateMultipleHaiku(word_dom, word_mc=None, nb_haiku=10):
     
     return haiku_list
 
+def pickTopNHaiku(haiku_list, scores, topN=0.25):
+    top_haiku_list = []
+    top_scores = scores[0:int(len(scores)*topN)]
+    for score in top_scores:
+        top_haiku_list.append(haiku_list[score[0]])
+    return top_haiku_list
+    
 def main():
-    nb_haiku = 1
+    nb_haiku = 100
+
+    '''
+    First 100 batch randomly
+    '''
     word_dom = WordDom('alice.txt')    
-    word_mc = WordMC('top18.txt', highest_order=2)
-    #word_mc = None
-#    word_markov_1 = word_mc.getWord_mc(order=1)
-#    word_markov_2 = word_mc.getWord_mc(order=2)
-#    word_type_markov_1 = word_mc.getWord_type_mc(order=1)
-#    word_type_markov_2 = word_mc.getWord_type_mc(order=2)
+
+    #word_mc = WordMC('top18.txt', highest_order=2)
+    word_mc = None
 
     haiku_list = []
     haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
-    writeHaikuListToFile(haiku_list)
+    
+    out_filename='generated_n_haiku.txt'
+    writeHaikuListToFile(haiku_list, out_filename)
+    
+    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
+    print("-- GOT SCORES: ", len(scores))
+    print(scores)
+    
+    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
+    
+    if print_on:
+        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
+    
+    out_filename_2 ='top_n_generated_haiku.txt'
+    writeHaikuListToFile(top_haiku_list, out_filename_2)
+    
+    '''
+    Second 100 batch guided by word_type markov_chains created from topN from first round
+    '''
+    word_mc = WordMC(out_filename_2, highest_order=2)
+    
+    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
+    
+    out_filename='generated_n_haiku_2.txt'
+    writeHaikuListToFile(haiku_list, out_filename)
+    
+    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
+    print("-- GOT SCORES: ", len(scores))
+    print(scores)
+    
+    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
+
+    if print_on:
+        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
+    
+    out_filename_2 ='top_n_generated_haiku_2.txt'
+    writeHaikuListToFile(top_haiku_list, out_filename_2)
+
+    '''
+    Second 100 batch guided by word_type markov_chains created from topN from second round
+    '''
+    word_mc = WordMC(out_filename_2, highest_order=2)
+    
+    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
+    
+    out_filename='generated_n_haiku_3.txt'
+    writeHaikuListToFile(haiku_list, out_filename)
+    
+    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
+    print("-- GOT SCORES: ", len(scores))
+    print(scores)
+    
+    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
+
+    if print_on:
+        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
+    
+    out_filename_2 ='top_n_generated_haiku_3.txt'
+    writeHaikuListToFile(top_haiku_list, out_filename_2)
     
     #print("word_markov_1", json.dumps(word_markov_1, indent=2))
     #print("word_markov_2", json.dumps(word_markov_2, indent=2))

@@ -97,7 +97,7 @@ class WordMC:
                         'WP$',
                         'WRB'
                         ]
-        self.print_on = True
+        self.print_on = False
 
         self.text_raw = None
         self.__readTextFile(text_file)
