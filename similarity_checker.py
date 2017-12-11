@@ -22,8 +22,8 @@ def score_single_haiku(haikugt):
     '''
 
 '''
-Scores wordt type order based on
-good word type orders.
+Scores wordtype order based on
+good wordtype orders.
 Argument 'haiku' is a genotype haiku.
 Argument 'goal_ss_pool_dict' is a
 dictionary of all wordtype substrings
@@ -56,7 +56,7 @@ def haiku_to_word_type_order(haiku):
         wto.append(word_tuple[1])
     for word_tuple in haiku['L2']:
         wto.append(word_tuple[1])
-    for word_tuple in haiku['L2']:
+    for word_tuple in haiku['L3']:
         wto.append(word_tuple[1])
     return wto
 
@@ -89,3 +89,45 @@ def substring_from_list(a, b, haiku_wto):
         ss = ss + haiku_wto[i] + " "
     ss = ss[0:-1]
     return ss
+
+'''
+Scores haiku based on word pair occurrences
+in the corpus used in haiku generation.
+Argument 'haiku' is the genotype representation
+of the haiku you want to score.
+Argument 'markov1' is the 1st order Markov
+chain of the actual words in used corpus.
+Returns a score between 0 and 1.
+0 means that no word pair in haiku
+is oresent in corpus. 1 means all word
+pairs appear in corpus.
+'''
+def score_wpo(haiku, markov1):
+    word_pairs = pair_words(haiku)
+    found_pairs = 0
+    for pair in word_pairs:
+        #print(pair)
+        prob = markov1.get(pair[0], {'DUMM1':-1.0}).get(pair[1], 0.0)
+        if(prob > 0.0):
+            found_pairs = found_pairs + 1
+    return found_pairs/len(word_pairs)
+
+
+'''
+Creates a list of word pairs
+apperaing in a haiku.
+Argument 'haiku' is a genotype haiku.
+'''
+def pair_words(haiku):
+    words = []
+    for word_tuple in haiku['L1']:
+        words.append(word_tuple[0])
+    for word_tuple in haiku['L2']:
+        words.append(word_tuple[0])
+    for word_tuple in haiku['L3']:
+        words.append(word_tuple[0])
+    pairs = []
+    for i in range(0, len(words) - 1):
+        pair = [words[i], words[i+1]]
+        pairs.append(pair)
+    return pairs
