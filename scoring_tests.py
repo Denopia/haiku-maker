@@ -1,6 +1,7 @@
 import haikuhandler
 import similarity_checker
 import operator
+import wordmc
 
 def scoring_test1(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt"):
     '''
@@ -54,3 +55,49 @@ def scoring_test1(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt"):
     Also return sorted (haiku index, haiku score) pairs.
     '''
     return sorted_scores
+
+
+def scoring_test2(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt", corpus = "alice.txt"):
+    '''
+    Read a haiku text file into a dictionary. 
+    These are the haiku which will be scored.
+    '''
+    generated_haiku_dict = haikuhandler.json_from_text(file_name = haiku_to_evaluate)
+    
+    '''
+    Create 1st order Markov chain from corpus.
+    '''
+    wmc = wordmc.WordMC(text_file = corpus, highest_order = 2)
+    
+    markov = wmc.getWord_mc(order = 1)
+    #print(markov)
+    '''
+    Score each poem.
+    '''
+    scores = []
+    
+    for key, haiku in generated_haiku_dict.items():
+        score = [key, similarity_checker.score_wpo(haiku['genotype_form'], markov1 = markov)]    
+        scores.append(score)
+    
+    '''
+    Print top scoring poems.
+    '''
+    sorted_scores = sorted(scores, key=operator.itemgetter(1), reverse=True)
+    for i in range(0,10):
+        j = i+1
+        good_haiku_key = sorted_scores[i][0]
+        good_haiku = generated_haiku_dict[good_haiku_key]['lines']
+        print("Number ", j, " haiku is: ")
+        print(good_haiku)
+     
+    '''
+    Also return sorted (haiku index, haiku score) pairs.
+    '''
+    return sorted_scores
+    
+        
+        
+        
+        
+        
