@@ -4,6 +4,10 @@
 Created on Sun Dec  3 14:55:36 2017
 
 @author: ittobor
+
+Main functionality of Haiku Maker.
+main() function creates haiku and
+writes them in a text file.
 """
 
 from worddom import WordDom
@@ -262,15 +266,16 @@ def pickTopNHaiku(haiku_list, scores, topN=1):
         top_haiku_list.append(haiku_list[score[0]])
     return top_haiku_list
     
-def main():
-    nb_haiku = 10000
-    nb_learnings = 10
-    nb_topN = int(nb_haiku*0.10)
+def main(text_file = 'nat_coo_sma.txt', haiku_n = 10000, loops = 10, topp = 0.1):
+    nb_haiku = haiku_n
+    nb_learnings = loops
+    nb_topN = int(nb_haiku*topp)
     
     '''
     First 100 batch randomly and score
     '''
-    in_filename = 'nat_coo_sma.txt'
+    #in_filename = 'nat_coo_sma.txt'
+    in_filename = text_file
     
     out_filename_1_prefix = in_filename.split('.')[0] + '_generated_' + str(nb_haiku)
     out_filename_2_prefix = in_filename.split('.')[0] + '_top_' + str(nb_topN) + '_haiku_of_' + str(nb_haiku)

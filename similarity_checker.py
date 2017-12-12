@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+'''
+Functions used in scoring haiku.
+'''
 
 import haikuhandler as hh
 from operator import itemgetter
@@ -131,3 +134,7 @@ def pair_words(haiku):
         pair = [words[i], words[i+1]]
         pairs.append(pair)
     return pairs
+
+
+def score_line_ends(haiku):
+    return 0.0

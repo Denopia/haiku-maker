@@ -1,8 +1,18 @@
+'''
+Haiku scoring functions.
+'''
+
+
+
 import haikuhandler
 import similarity_checker
 import operator
 import wordmc
 
+'''
+Reads a haiku file and returns scores 
+for each haiku based on wordtype structure.
+'''
 def scoring_test1(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt"):
     '''
     Read a haiku text file into a dictionary. 
@@ -56,7 +66,10 @@ def scoring_test1(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt"):
     '''
     return sorted_scores
 
-
+'''
+Reads a haiku file and returns scores 
+for each haiku based on wordpair occurrences.
+'''
 def scoring_test2(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt", corpus = "alice.txt"):
     '''
     Read a haiku text file into a dictionary. 

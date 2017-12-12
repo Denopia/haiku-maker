@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Dec  3 23:37:29 2017
-
-@author: mlein
+Functions for reading text files and generating
+haiku dictionaries to use in evaluation.
 """
 
 import json
