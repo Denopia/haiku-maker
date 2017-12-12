@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Sun Dec  3 11:14:47 2017
-@author: ittobor
-
 WordTypeMC is a class that generate and returns given order markov chain (word_types_mc).
 During initalization textfile can be given or alice.txt will be looked for.
 word_types_mc will be generated from the textfile.

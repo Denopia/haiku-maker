@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Sun Dec  3 11:14:47 2017
-@author: ittobor
-
 WordDom is a class that holds the words_dict and the word_types_mc (word type based markov chain).
 During initalization textfile can be given or alice.txt will be looked for.
 words_dict and word_types_mc will be generated from the textfile.
@@ -79,7 +74,6 @@ class WordDom:
             self.text_raw = f.read()
 
     def __init__(self, text_file='alice.txt'):
-        print('__init__')
         self.tag_list = [
                         'CC',
                         'CD',
@@ -154,6 +148,10 @@ class WordDom:
                         self.words_dict[tag][sy_count].append(word)
                                 
 
+    '''
+    Could be used to add more text to the word_dict.
+    Not in used, not tested actually.
+    '''
     def addText(self, text_file="alice.txt"):
         if text_file:
             self.__readTextFile(text_file)
@@ -162,6 +160,9 @@ class WordDom:
     def printWordsDict(self):
         print("words_dict\n",json.dumps(self.words_dict, indent=2))
 
+    '''
+    Was used for debuggin, but not working correctly to intention.
+    '''
     def printSelected(self, word_type=None, syllable_count=None, word=None):
         keylist = list(self.words_dict.keys())
         result = {}

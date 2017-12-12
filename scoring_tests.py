@@ -55,12 +55,12 @@ def scoring_test1(haiku_to_evaluate = "generated_100_haiku-goal_oriented.txt"):
     Print top scoring poems.
     '''
     sorted_scores = sorted(wto_scores, key=operator.itemgetter(1), reverse=True)
-    for i in range(0,10):
-        j = i+1
-        good_haiku_key = sorted_scores[i][0]
-        good_haiku = generated_haiku_dict[good_haiku_key]['lines']
-        print("Number ", j, " haiku is: ")
-        print(good_haiku)
+#    for i in range(0,10):
+#        j = i+1
+#        good_haiku_key = sorted_scores[i][0]
+#        good_haiku = generated_haiku_dict[good_haiku_key]['lines']
+#        print("Number ", j, " haiku is: ")
+#        print(good_haiku)
     '''
     Also return sorted (haiku index, haiku score) pairs.
     '''

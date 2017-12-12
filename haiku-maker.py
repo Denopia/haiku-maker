@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Sun Dec  3 14:55:36 2017
-
-@author: ittobor
+haiku-maker.py
 
 Main functionality of Haiku Maker.
 main() function creates haiku and
@@ -13,7 +9,7 @@ writes them in a text file.
 from worddom import WordDom
 from wordmc import WordMC
 import scoring_tests
-import json, random, operator
+import json, random, operator, sys
 
 line1 = 'L1'
 line2 = 'L2'
@@ -32,8 +28,6 @@ haiku_model = {
             "L2":[('VBN',2), ('VBN',3), ('VBN',3)],
             "L3":[('VBN',2), ('VBN',3)]
         }
-
-
 
 '''
 Randomly select key from dict.
@@ -56,8 +50,6 @@ def getAword(word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=No
     if word_mc is not None:
         word_type_markov1 = word_mc.getWord_type_mc(order=1)
         word_type_markov2 = word_mc.getWord_type_mc(order=2)
-    
-#    print(len(word_dict.keys()), type(word_dict.keys()))
 
     # store original syllable_count to be used if word_type will be changed
     og_sc = syllable_count
@@ -115,10 +107,14 @@ def getAword(word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=No
                     ok_sc = False
                     word_type = None
                     break
-#    print(word)
-    
+
     return (word, word_type, syllable_count)
 
+'''
+This is used by getAword() if markov-chains were provided and if minimum previous word_type is known already.
+Will previous or previous-from-previous word-type to suggest the next word-type type looked for in the getAword function.
+Uses 1st and 2nd order markov-chains.
+'''
 def choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1, word_type_markov2):
     if prev_prev_word_type is None:
         #Sprint("2nd is None")
@@ -149,6 +145,9 @@ def choose_next_word_type(prev_word_type, prev_prev_word_type, word_type_markov1
     
     return next_word_type.split(" ")[-1]
 
+'''
+Used to create a line for haiku using syllaable_count to constrain the line length.
+'''
 def createLine(syllable_count, word_dom, word_mc=None, prev_word_type=None, prev_prev_word_type=None):
     if print_on:
         print("-- CREATE LINE --")
@@ -226,6 +225,9 @@ def generateHaiku(word_dom, word_mc=None, haiku_model=None):
     
     return haiku_genotype
 
+'''
+Writes given haiku-genotypes to output-file as haiku artefacts.
+'''
 def writeHaikuListToFile(haiku_list, out_filename='generated_n_haiku.txt'):
         with open(out_filename, 'w') as f:
             for i in range(len(haiku_list)):
@@ -245,12 +247,18 @@ def writeHaikuListToFile(haiku_list, out_filename='generated_n_haiku.txt'):
 
                 f.write(haiku)
 
+'''
+Writes given scores-list to an output-file.
+'''
 def writeScoreListToFile(scores, topN=1, out_filename='scores_n_haiku.txt'):
         with open(out_filename, 'w') as f:
             for i in range(topN):
                 score = str(scores[i][0]) + ' ' + str(scores[i][1]) + '\n'
                 f.write(score)
 
+'''
+Generates a given number of haiku-genotypes
+'''
 def generateMultipleHaiku(word_dom, word_mc=None, nb_haiku=10): 
     haiku_list = [] 
     for _ in range(nb_haiku):
@@ -259,20 +267,36 @@ def generateMultipleHaiku(word_dom, word_mc=None, nb_haiku=10):
     
     return haiku_list
 
+'''
+Creates top-scoring haiku list from list of generated haiku and scores-list.
+'''
 def pickTopNHaiku(haiku_list, scores, topN=1):
     top_haiku_list = []
     top_scores = scores[0:topN]
     for score in top_scores:
         top_haiku_list.append(haiku_list[score[0]])
     return top_haiku_list
+
+'''
+Main-fucntion for the total program functionality.
+'''
+def main(text_file = 'nat_coo_sma.txt', haiku_n = 1000, loops = 3, topp = 0.25):
     
-def main(text_file = 'nat_coo_sma.txt', haiku_n = 10000, loops = 10, topp = 0.1):
+    print("\n")
+    print("\n")
+    print("\n")
+    print("Running haiku-maker with input params:")
     nb_haiku = haiku_n
     nb_learnings = loops
     nb_topN = int(nb_haiku*topp)
-    
+    print("\ttext file name given as corpus            --> ", text_file)
+    print("\tnumber of haiku to be generated per round --> ", nb_haiku)
+    print("\tnumber of evaluation-feedback loops       --> ", nb_learnings)
+    print("\tnumber of top-evaluated haiku to use      --> ", nb_topN)
+    print("\n")
+    print("\tstart to generate")
     '''
-    First 100 batch randomly and score
+    First batch randomly and score
     '''
     #in_filename = 'nat_coo_sma.txt'
     in_filename = text_file
@@ -307,12 +331,12 @@ def main(text_file = 'nat_coo_sma.txt', haiku_n = 10000, loops = 10, topp = 0.1)
     writeHaikuListToFile(top_haiku_list, out_filename_2)
 
     '''
-    Generate 100 batch N times, and learn based on previous score
+    Generate batch N times, and learn based on previous score
     '''    
     if nb_learnings > 0:
         for i in range(nb_learnings):
+            print("\tfeedback-loop ", i+1)
             word_mc = WordMC(out_filename_2, highest_order=2)
-            #print(word_dom.getWordsDict().keys())
             haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
     
             out_filename = out_filename_1_prefix + '_' + str(int(i+1)) + '.txt'
@@ -333,93 +357,18 @@ def main(text_file = 'nat_coo_sma.txt', haiku_n = 10000, loops = 10, topp = 0.1)
     
             out_filename_2 = out_filename_2_prefix + '_' + str(int(i+1)) + '.txt'
             writeHaikuListToFile(top_haiku_list, out_filename_2)
-
-#    '''
-#    Second 100 batch guided by word_type markov_chains created from topN from first round
-#    '''
-#    word_mc = WordMC(out_filename_2, highest_order=2)
-#    
-#    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
-#    
-#    out_filename='generated_n_haiku_2.txt'
-#    writeHaikuListToFile(haiku_list, out_filename)
-#    
-#    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
-#    print("-- GOT SCORES: ", len(scores))
-#    print(scores[0:10])
-#    
-#    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
-#
-#    if print_on:
-#        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
-#    
-#    out_filename_2 ='top_n_generated_haiku_2.txt'
-#    writeHaikuListToFile(top_haiku_list, out_filename_2)
-#
-#    '''
-#    Third 100 batch guided by word_type markov_chains created from topN from second round
-#    '''
-#    word_mc = WordMC(out_filename_2, highest_order=2)
-#    
-#    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
-#    
-#    out_filename='generated_n_haiku_3.txt'
-#    writeHaikuListToFile(haiku_list, out_filename)
-#    
-#    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
-#    print("-- GOT SCORES: ", len(scores))
-#    print(scores[0:10])
-#    
-#    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
-#
-#    if print_on:
-#        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
-#    
-#    out_filename_2 ='top_n_generated_haiku_3.txt'
-#    writeHaikuListToFile(top_haiku_list, out_filename_2)
-#
-#    '''
-#    Fourth 100 batch guided by word_type markov_chains created from topN from second round
-#    '''
-#    word_mc = WordMC(out_filename_2, highest_order=2)
-#    
-#    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
-#    
-#    out_filename='generated_n_haiku_4.txt'
-#    writeHaikuListToFile(haiku_list, out_filename)
-#    
-#    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
-#    print("-- GOT SCORES: ", len(scores))
-#    print(scores[0:10])
-#    
-#    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
-#
-#    if print_on:
-#        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
-#    
-#    out_filename_2 ='top_n_generated_haiku_4.txt'
-#    writeHaikuListToFile(top_haiku_list, out_filename_2)
-#    
-#    '''
-#    Fifth 100 batch guided by word_type markov_chains created from topN from second round
-#    '''
-#    word_mc = WordMC(out_filename_2, highest_order=2)
-#    
-#    haiku_list = generateMultipleHaiku(word_dom=word_dom, word_mc=word_mc, nb_haiku=nb_haiku)
-#    
-#    out_filename='generated_n_haiku_5.txt'
-#    writeHaikuListToFile(haiku_list, out_filename)
-#    
-#    scores = scoring_tests.scoring_test1(haiku_to_evaluate=out_filename)
-#    print("-- GOT SCORES: ", len(scores))
-#    print(scores[0:10])
-#    
-#    top_haiku_list = pickTopNHaiku(haiku_list, scores, topN=0.25)
-#
-#    if print_on:
-#        print("top haiku genotypes \n", json.dumps(top_haiku_list, indent=2))
-#    
-#    out_filename_2 ='top_n_generated_haiku_5.txt'
-#    writeHaikuListToFile(top_haiku_list, out_filename_2)
-
-main()
+    
+    print("\tend of generation")
+    print("\n")
+    print("\tall haiku in files named      --> " + out_filename_1_prefix +"*")
+    print("\tall top haiku in files named  --> " + out_filename_2_prefix +"*")
+    print("\tall top scores in files named --> " + out_filename_3_prefix +"*")
+    print("\n")
+    print("\n")
+    print("\n")
+    
+if __name__ == "__main__":
+    if len(sys.argv) == 5:
+        main(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), float(sys.argv[4]))
+    else:
+        main()
