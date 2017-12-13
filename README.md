@@ -90,3 +90,164 @@ considered to be good if each word is only followed by a words which also
 appear after it in the original text, why not use regular Markov chains.
 But we didn’t want the system to be this limited, and wanted to see some
 surprising word combinations. 
+
+## Running instructions
+
+The system consists python scripts:
+- haiku-maker.py
+- wordmc.py
+- worddom.py
+- haikuhandler.py
+- similarity_checker.py
+- scoring_tests.py.
+
+Python 3.5 is required and otherwise same libraries are used as with cource exercises. Nltk, wordnet from nltk.download() and pronouncing are main ones. Other libraries in a working environemnt can be found as a list at the end of this document.
+
+haiku-maker.py is the main module and you can create haiku poems by calling the main module.
+
+	python3 haiku-maker.py natural.txt 1000 3 0.15
+
+4 input arguments is required to run in ‘customized’ mode. Other number of input arguments will result in running the system with default values.
+
+	1 input filename	-> text file used as corpus in running directory
+	2 nb-of-haiku		-> number of haikus to be generated in one loop
+	3 nb-of-loops		-> number of loops run for evaluation and regeneration
+	4 pr-of-top		-> percentage of top score haiku used in learning for regeneration
+
+System will print out some information during run:
+
+	Running haiku-maker with input params:
+		text file name given as corpus            -->  alice.txt
+		number of haiku to be generated per round -->  1000
+		number of evaluation-feedback loops       -->  3
+		number of top-evaluated haiku to use      -->  150
+
+
+		start to generate
+		feedback-loop  1
+		feedback-loop  2
+		feedback-loop  3
+		end of generation
+
+
+		all haiku in files named      --> alice_generated_1000*
+		all top haiku in files named  --> alice_top_150_haiku_of_1000*
+		all top scores in files named --> alice_top_150_scores_of_1000*
+
+System will generate some nubmer of output files to running directory. These files contain all haiku generated in each loop. Top scored haiku per each loop. And top scores for top scored haiku in each loop (row-number and score).
+
+Two bug were found during running. These were recognized to be related to small corpus.
+
+# packages in environment at /home/ittobor/anaconda3/envs/cc:
+#
+aiomas                    1.0.3                     <pip>
+alabaster                 0.7.10                   py35_1    conda-forge
+arrow                     0.10.0                    <pip>
+asn1crypto                0.22.0                   py35_0    conda-forge
+astroid                   1.5.3                    py35_0    conda-forge
+babel                     2.5.1                    py35_0    conda-forge
+bleach                    2.0.0                    py35_0    conda-forge
+ca-certificates           2017.7.27.1                   0    conda-forge
+certifi                   2017.7.27.1              py35_0    conda-forge
+cffi                      1.10.0                   py35_0    conda-forge
+chardet                   3.0.4                    py35_0    conda-forge
+creamas                   0.3.0                     <pip>
+cryptography              2.0.3                    py35_0    conda-forge
+dbus                      1.10.22                       0    conda-forge
+decorator                 4.1.2                    py35_0    conda-forge
+docutils                  0.14                     py35_0    conda-forge
+entrypoints               0.2.3                    py35_1    conda-forge
+expat                     2.2.1                         0    conda-forge
+fontconfig                2.12.1                        4    conda-forge
+freetype                  2.7                           1    conda-forge
+gettext                   0.19.7                        1    conda-forge
+glib                      2.51.4                        0    conda-forge
+gmp                       6.1.2                         0    conda-forge
+gst-plugins-base          1.8.0                         0    conda-forge
+gstreamer                 1.8.0                         2    conda-forge
+html5lib                  0.999999999              py35_0    conda-forge
+icu                       58.1                          1    conda-forge
+idna                      2.6                      py35_1    conda-forge
+imagesize                 0.7.1                    py35_0    conda-forge
+ipykernel                 4.6.1                    py35_0    conda-forge
+ipython                   6.2.1                    py35_0    conda-forge
+ipython_genutils          0.2.0                    py35_0    conda-forge
+isort                     4.2.15                   py35_0    conda-forge
+jedi                      0.10.2                   py35_0    conda-forge
+jinja2                    2.9.6                    py35_0    conda-forge
+jpeg                      9b                            1    conda-forge
+jsonschema                2.6.0                    py35_0    conda-forge
+jupyter_client            5.1.0                    py35_0    conda-forge
+jupyter_core              4.3.0                    py35_0    conda-forge
+lazy-object-proxy         1.3.1                    py35_0    conda-forge
+libffi                    3.2.1                         3    conda-forge
+libiconv                  1.14                          4    conda-forge
+libpng                    1.6.28                        0    conda-forge
+libsodium                 1.0.10                        0    conda-forge
+libxcb                    1.12                          1    conda-forge
+libxml2                   2.9.5                         0    conda-forge
+markupsafe                1.0                      py35_0    conda-forge
+mccabe                    0.6.1                    py35_0    conda-forge
+mistune                   0.7.4                    py35_0    conda-forge
+msgpack-python            0.4.8                     <pip>
+nbconvert                 5.3.1                      py_1    conda-forge
+nbformat                  4.4.0                    py35_0    conda-forge
+ncurses                   5.9                          10    conda-forge
+nltk                      3.2.1                    py35_0    conda-forge
+numpy                     1.13.3                    <pip>
+numpydoc                  0.7.0                    py35_0    conda-forge
+openssl                   1.0.2l                        0    conda-forge
+pandoc                    1.19.2                        0    conda-forge
+pandocfilters             1.4.1                    py35_0    conda-forge
+pcre                      8.39                          0    conda-forge
+pexpect                   4.2.1                    py35_0    conda-forge
+pickleshare               0.7.4                    py35_0    conda-forge
+pip                       9.0.1                    py35_0    conda-forge
+prompt_toolkit            1.0.15                   py35_0    conda-forge
+pronouncing               0.1.5                     <pip>
+psutil                    5.4.0                    py35_0    conda-forge
+ptyprocess                0.5.2                    py35_0    conda-forge
+pycodestyle               2.3.1                    py35_0    conda-forge
+pycparser                 2.18                     py35_0    conda-forge
+pyflakes                  1.6.0                    py35_0    conda-forge
+pygments                  2.2.0                    py35_0    conda-forge
+pylint                    1.7.1                    py35_0    conda-forge
+pyopenssl                 17.2.0                   py35_0    conda-forge
+pyqt                      5.6.0                    py35_4    conda-forge
+pysocks                   1.6.7                    py35_0    conda-forge
+python                    3.5.4                         0    conda-forge
+python-dateutil           2.6.1                    py35_0    conda-forge
+pytz                      2017.2                   py35_0    conda-forge
+pyzmq                     16.0.2                   py35_2    conda-forge
+qt                        5.6.2                         3    conda-forge
+qtawesome                 0.4.4                    py35_0    conda-forge
+qtconsole                 4.3.1                    py35_0    conda-forge
+qtpy                      1.3.1                    py35_0    conda-forge
+readline                  6.2                           0    conda-forge
+requests                  2.18.4                   py35_1    conda-forge
+rope                      0.10.7                   py35_0    conda-forge
+setuptools                36.6.0                   py35_1    conda-forge
+simplegeneric             0.8.1                    py35_0    conda-forge
+sip                       4.18                     py35_1    conda-forge
+six                       1.11.0                   py35_1    conda-forge
+snowballstemmer           1.2.1                    py35_0    conda-forge
+sphinx                    1.6.5                    py35_0    conda-forge
+sphinxcontrib-websupport  1.0.1                    py35_0    conda-forge
+spyder                    3.2.4                    py35_0    conda-forge
+sqlite                    3.13.0                        1    conda-forge
+testpath                  0.3.1                    py35_0    conda-forge
+tk                        8.5.19                        2    conda-forge
+tornado                   4.5.2                    py35_0    conda-forge
+traitlets                 4.3.2                    py35_0    conda-forge
+typing                    3.6.2                    py35_0    conda-forge
+urllib3                   1.22                     py35_0    conda-forge
+wcwidth                   0.1.7                    py35_0    conda-forge
+webencodings              0.5                      py35_0    conda-forge
+wheel                     0.30.0                     py_1    conda-forge
+wrapt                     1.10.11                  py35_0    conda-forge
+xmltodict                 0.11.0                   py35_0    conda-forge
+xorg-libxau               1.0.8                         3    conda-forge
+xorg-libxdmcp             1.1.2                         3    conda-forge
+xz                        5.2.3                         0    conda-forge
+zeromq                    4.2.1                         1    conda-forge
+zlib                      1.2.11                        0    conda-forge
