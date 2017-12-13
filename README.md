@@ -141,115 +141,115 @@ Two bug were found during running. These were recognized to be related to small 
 Sorry! The below list of libraries is more readable in "edit" mode. Or you can try 'Raw'.
 
 # packages in environment at /home/ittobor/anaconda3/envs/cc:
-#
-aiomas                    1.0.3                     <pip>
-alabaster                 0.7.10                   py35_1    conda-forge
-arrow                     0.10.0                    <pip>
-asn1crypto                0.22.0                   py35_0    conda-forge
-astroid                   1.5.3                    py35_0    conda-forge
-babel                     2.5.1                    py35_0    conda-forge
-bleach                    2.0.0                    py35_0    conda-forge
-ca-certificates           2017.7.27.1                   0    conda-forge
-certifi                   2017.7.27.1              py35_0    conda-forge
-cffi                      1.10.0                   py35_0    conda-forge
-chardet                   3.0.4                    py35_0    conda-forge
-creamas                   0.3.0                     <pip>
-cryptography              2.0.3                    py35_0    conda-forge
-dbus                      1.10.22                       0    conda-forge
-decorator                 4.1.2                    py35_0    conda-forge
-docutils                  0.14                     py35_0    conda-forge
-entrypoints               0.2.3                    py35_1    conda-forge
-expat                     2.2.1                         0    conda-forge
-fontconfig                2.12.1                        4    conda-forge
-freetype                  2.7                           1    conda-forge
-gettext                   0.19.7                        1    conda-forge
-glib                      2.51.4                        0    conda-forge
-gmp                       6.1.2                         0    conda-forge
-gst-plugins-base          1.8.0                         0    conda-forge
-gstreamer                 1.8.0                         2    conda-forge
-html5lib                  0.999999999              py35_0    conda-forge
-icu                       58.1                          1    conda-forge
-idna                      2.6                      py35_1    conda-forge
-imagesize                 0.7.1                    py35_0    conda-forge
-ipykernel                 4.6.1                    py35_0    conda-forge
-ipython                   6.2.1                    py35_0    conda-forge
-ipython_genutils          0.2.0                    py35_0    conda-forge
-isort                     4.2.15                   py35_0    conda-forge
-jedi                      0.10.2                   py35_0    conda-forge
-jinja2                    2.9.6                    py35_0    conda-forge
-jpeg                      9b                            1    conda-forge
-jsonschema                2.6.0                    py35_0    conda-forge
-jupyter_client            5.1.0                    py35_0    conda-forge
-jupyter_core              4.3.0                    py35_0    conda-forge
-lazy-object-proxy         1.3.1                    py35_0    conda-forge
-libffi                    3.2.1                         3    conda-forge
-libiconv                  1.14                          4    conda-forge
-libpng                    1.6.28                        0    conda-forge
-libsodium                 1.0.10                        0    conda-forge
-libxcb                    1.12                          1    conda-forge
-libxml2                   2.9.5                         0    conda-forge
-markupsafe                1.0                      py35_0    conda-forge
-mccabe                    0.6.1                    py35_0    conda-forge
-mistune                   0.7.4                    py35_0    conda-forge
-msgpack-python            0.4.8                     <pip>
-nbconvert                 5.3.1                      py_1    conda-forge
-nbformat                  4.4.0                    py35_0    conda-forge
-ncurses                   5.9                          10    conda-forge
-nltk                      3.2.1                    py35_0    conda-forge
-numpy                     1.13.3                    <pip>
-numpydoc                  0.7.0                    py35_0    conda-forge
-openssl                   1.0.2l                        0    conda-forge
-pandoc                    1.19.2                        0    conda-forge
-pandocfilters             1.4.1                    py35_0    conda-forge
-pcre                      8.39                          0    conda-forge
-pexpect                   4.2.1                    py35_0    conda-forge
-pickleshare               0.7.4                    py35_0    conda-forge
-pip                       9.0.1                    py35_0    conda-forge
-prompt_toolkit            1.0.15                   py35_0    conda-forge
-pronouncing               0.1.5                     <pip>
-psutil                    5.4.0                    py35_0    conda-forge
-ptyprocess                0.5.2                    py35_0    conda-forge
-pycodestyle               2.3.1                    py35_0    conda-forge
-pycparser                 2.18                     py35_0    conda-forge
-pyflakes                  1.6.0                    py35_0    conda-forge
-pygments                  2.2.0                    py35_0    conda-forge
-pylint                    1.7.1                    py35_0    conda-forge
-pyopenssl                 17.2.0                   py35_0    conda-forge
-pyqt                      5.6.0                    py35_4    conda-forge
-pysocks                   1.6.7                    py35_0    conda-forge
-python                    3.5.4                         0    conda-forge
-python-dateutil           2.6.1                    py35_0    conda-forge
-pytz                      2017.2                   py35_0    conda-forge
-pyzmq                     16.0.2                   py35_2    conda-forge
-qt                        5.6.2                         3    conda-forge
-qtawesome                 0.4.4                    py35_0    conda-forge
-qtconsole                 4.3.1                    py35_0    conda-forge
-qtpy                      1.3.1                    py35_0    conda-forge
-readline                  6.2                           0    conda-forge
-requests                  2.18.4                   py35_1    conda-forge
-rope                      0.10.7                   py35_0    conda-forge
-setuptools                36.6.0                   py35_1    conda-forge
-simplegeneric             0.8.1                    py35_0    conda-forge
-sip                       4.18                     py35_1    conda-forge
-six                       1.11.0                   py35_1    conda-forge
-snowballstemmer           1.2.1                    py35_0    conda-forge
-sphinx                    1.6.5                    py35_0    conda-forge
-sphinxcontrib-websupport  1.0.1                    py35_0    conda-forge
-spyder                    3.2.4                    py35_0    conda-forge
-sqlite                    3.13.0                        1    conda-forge
-testpath                  0.3.1                    py35_0    conda-forge
-tk                        8.5.19                        2    conda-forge
-tornado                   4.5.2                    py35_0    conda-forge
-traitlets                 4.3.2                    py35_0    conda-forge
-typing                    3.6.2                    py35_0    conda-forge
-urllib3                   1.22                     py35_0    conda-forge
-wcwidth                   0.1.7                    py35_0    conda-forge
-webencodings              0.5                      py35_0    conda-forge
-wheel                     0.30.0                     py_1    conda-forge
-wrapt                     1.10.11                  py35_0    conda-forge
-xmltodict                 0.11.0                   py35_0    conda-forge
-xorg-libxau               1.0.8                         3    conda-forge
-xorg-libxdmcp             1.1.2                         3    conda-forge
-xz                        5.2.3                         0    conda-forge
-zeromq                    4.2.1                         1    conda-forge
-zlib                      1.2.11                        0    conda-forge
+
+	aiomas                    1.0.3                     <pip>
+	alabaster                 0.7.10                   py35_1    conda-forge
+	arrow                     0.10.0                    <pip>
+	asn1crypto                0.22.0                   py35_0    conda-forge
+	astroid                   1.5.3                    py35_0    conda-forge
+	babel                     2.5.1                    py35_0    conda-forge
+	bleach                    2.0.0                    py35_0    conda-forge
+	ca-certificates           2017.7.27.1                   0    conda-forge
+	certifi                   2017.7.27.1              py35_0    conda-forge
+	cffi                      1.10.0                   py35_0    conda-forge
+	chardet                   3.0.4                    py35_0    conda-forge
+	creamas                   0.3.0                     <pip>
+	cryptography              2.0.3                    py35_0    conda-forge
+	dbus                      1.10.22                       0    conda-forge
+	decorator                 4.1.2                    py35_0    conda-forge
+	docutils                  0.14                     py35_0    conda-forge
+	entrypoints               0.2.3                    py35_1    conda-forge
+	expat                     2.2.1                         0    conda-forge
+	fontconfig                2.12.1                        4    conda-forge
+	freetype                  2.7                           1    conda-forge
+	gettext                   0.19.7                        1    conda-forge
+	glib                      2.51.4                        0    conda-forge
+	gmp                       6.1.2                         0    conda-forge
+	gst-plugins-base          1.8.0                         0    conda-forge
+	gstreamer                 1.8.0                         2    conda-forge
+	html5lib                  0.999999999              py35_0    conda-forge
+	icu                       58.1                          1    conda-forge
+	idna                      2.6                      py35_1    conda-forge
+	imagesize                 0.7.1                    py35_0    conda-forge
+	ipykernel                 4.6.1                    py35_0    conda-forge
+	ipython                   6.2.1                    py35_0    conda-forge
+	ipython_genutils          0.2.0                    py35_0    conda-forge
+	isort                     4.2.15                   py35_0    conda-forge
+	jedi                      0.10.2                   py35_0    conda-forge
+	jinja2                    2.9.6                    py35_0    conda-forge
+	jpeg                      9b                            1    conda-forge
+	jsonschema                2.6.0                    py35_0    conda-forge
+	jupyter_client            5.1.0                    py35_0    conda-forge
+	jupyter_core              4.3.0                    py35_0    conda-forge
+	lazy-object-proxy         1.3.1                    py35_0    conda-forge
+	libffi                    3.2.1                         3    conda-forge
+	libiconv                  1.14                          4    conda-forge
+	libpng                    1.6.28                        0    conda-forge
+	libsodium                 1.0.10                        0    conda-forge
+	libxcb                    1.12                          1    conda-forge
+	libxml2                   2.9.5                         0    conda-forge
+	markupsafe                1.0                      py35_0    conda-forge
+	mccabe                    0.6.1                    py35_0    conda-forge
+	mistune                   0.7.4                    py35_0    conda-forge
+	msgpack-python            0.4.8                     <pip>
+	nbconvert                 5.3.1                      py_1    conda-forge
+	nbformat                  4.4.0                    py35_0    conda-forge
+	ncurses                   5.9                          10    conda-forge
+	nltk                      3.2.1                    py35_0    conda-forge
+	numpy                     1.13.3                    <pip>
+	numpydoc                  0.7.0                    py35_0    conda-forge
+	openssl                   1.0.2l                        0    conda-forge
+	pandoc                    1.19.2                        0    conda-forge
+	pandocfilters             1.4.1                    py35_0    conda-forge
+	pcre                      8.39                          0    conda-forge
+	pexpect                   4.2.1                    py35_0    conda-forge
+	pickleshare               0.7.4                    py35_0    conda-forge
+	pip                       9.0.1                    py35_0    conda-forge
+	prompt_toolkit            1.0.15                   py35_0    conda-forge
+	pronouncing               0.1.5                     <pip>
+	psutil                    5.4.0                    py35_0    conda-forge
+	ptyprocess                0.5.2                    py35_0    conda-forge
+	pycodestyle               2.3.1                    py35_0    conda-forge
+	pycparser                 2.18                     py35_0    conda-forge
+	pyflakes                  1.6.0                    py35_0    conda-forge
+	pygments                  2.2.0                    py35_0    conda-forge
+	pylint                    1.7.1                    py35_0    conda-forge
+	pyopenssl                 17.2.0                   py35_0    conda-forge
+	pyqt                      5.6.0                    py35_4    conda-forge
+	pysocks                   1.6.7                    py35_0    conda-forge
+	python                    3.5.4                         0    conda-forge
+	python-dateutil           2.6.1                    py35_0    conda-forge
+	pytz                      2017.2                   py35_0    conda-forge
+	pyzmq                     16.0.2                   py35_2    conda-forge
+	qt                        5.6.2                         3    conda-forge
+	qtawesome                 0.4.4                    py35_0    conda-forge
+	qtconsole                 4.3.1                    py35_0    conda-forge
+	qtpy                      1.3.1                    py35_0    conda-forge
+	readline                  6.2                           0    conda-forge
+	requests                  2.18.4                   py35_1    conda-forge
+	rope                      0.10.7                   py35_0    conda-forge
+	setuptools                36.6.0                   py35_1    conda-forge
+	simplegeneric             0.8.1                    py35_0    conda-forge
+	sip                       4.18                     py35_1    conda-forge
+	six                       1.11.0                   py35_1    conda-forge
+	snowballstemmer           1.2.1                    py35_0    conda-forge
+	sphinx                    1.6.5                    py35_0    conda-forge
+	sphinxcontrib-websupport  1.0.1                    py35_0    conda-forge
+	spyder                    3.2.4                    py35_0    conda-forge
+	sqlite                    3.13.0                        1    conda-forge
+	testpath                  0.3.1                    py35_0    conda-forge
+	tk                        8.5.19                        2    conda-forge
+	tornado                   4.5.2                    py35_0    conda-forge
+	traitlets                 4.3.2                    py35_0    conda-forge
+	typing                    3.6.2                    py35_0    conda-forge
+	urllib3                   1.22                     py35_0    conda-forge
+	wcwidth                   0.1.7                    py35_0    conda-forge
+	webencodings              0.5                      py35_0    conda-forge
+	wheel                     0.30.0                     py_1    conda-forge
+	wrapt                     1.10.11                  py35_0    conda-forge
+	xmltodict                 0.11.0                   py35_0    conda-forge
+	xorg-libxau               1.0.8                         3    conda-forge
+	xorg-libxdmcp             1.1.2                         3    conda-forge
+	xz                        5.2.3                         0    conda-forge
+	zeromq                    4.2.1                         1    conda-forge
+	zlib                      1.2.11                        0    conda-forge
