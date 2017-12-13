@@ -1,0 +1,113 @@
+runfile('/home/ittobor/datascience/compcrea/minip/haiku-maker/haiku-maker.py', wdir='/home/ittobor/datascience/compcrea/minip/haiku-maker')
+Reloaded modules: scoring_tests, similarity_checker, worddom, haikuhandler, wordmc
+__init__
+Number  1  haiku is: 
+['inconsistencies', 'simmer substitutes napkin', 'omelets higher side']
+Number  2  haiku is: 
+['parisienne who', 'worst raspberries vinegar', 'cake whatever such']
+Number  3  haiku is: 
+['pour around oven', 'capitalization try', 'most aside why milk']
+Number  4  haiku is: 
+['slip raspberries need', 'cover inconsistencies', 'vegetarian']
+Number  5  haiku is: 
+['rusty brown less strip', 'thick inconsistencies need', 'honolulu high']
+Number  6  haiku is: 
+['brightest whatever', 'polonaise indemnify', 'pistachio times']
+Number  7  haiku is: 
+['there better la add', 'applies pistachio melt', 'illustrated its']
+Number  8  haiku is: 
+['loosen pull smaller', 'pistachio paprika', 'oven appleton']
+Number  9  haiku is: 
+['redistributing', 'regent healthier loosen', 'all best chopped cover']
+Number  10  haiku is: 
+['handy mix either', 'omelets proprietary', 'au finest oh add']
+-- GOT SCORES:  1000
+[[507, 0.8571428571428571], [943, 0.75], [611, 0.7142857142857143], [624, 0.7142857142857143], [801, 0.7], [675, 0.6666666666666666], [452, 0.6], [30, 0.5714285714285714], [155, 0.5714285714285714], [354, 0.5714285714285714]]
+Number  1  haiku is: 
+['ailments gallon peach', 'omit characters fasten', 'weddings us need off']
+Number  2  haiku is: 
+['occur another', 'decorate caramel need', 'why imagine out']
+Number  3  haiku is: 
+['alternately more', 'raspberries underside thick', 'half freezing might who']
+Number  4  haiku is: 
+['accumulating', 'need observe despondency', 'redistributing']
+Number  5  haiku is: 
+['lest applicable', 'along manipulation', 'skim reliable']
+Number  6  haiku is: 
+['realizes most', 'peculiarities bake', 'easier thirty']
+Number  7  haiku is: 
+['around whatever', 'capitalization store', 'whatever forms milk']
+Number  8  haiku is: 
+['oh easy there why', 'any attractive rye deep', 'who who recommend']
+Number  9  haiku is: 
+['another any', 'michael originator', 'dough there why weather']
+Number  10  haiku is: 
+['rises whatever', 'inconsistencies father', 'follows its there lamb']
+-- GOT SCORES:  1000
+[[393, 0.7777777777777778], [347, 0.75], [526, 0.75], [29, 0.7142857142857143], [94, 0.6666666666666666], [126, 0.6666666666666666], [215, 0.6666666666666666], [376, 0.6666666666666666], [405, 0.6666666666666666], [588, 0.6666666666666666]]
+Number  1  haiku is: 
+['every wash dice', 'puddings pumpernickel break', 'around blackberry']
+Number  2  haiku is: 
+['favorable strain', 'editions mace transparent', 'loosen consequent']
+Number  3  haiku is: 
+['whatever lemon', 'evaporates smart cornstarch', 'fry must its there stoned']
+Number  4  haiku is: 
+['best professional', 'rises window tablespoon', 'there any ginger']
+Number  5  haiku is: 
+['appreciated', 'spread opportunity need', 'concept first nose who']
+Number  6  haiku is: 
+['accumulating', 'capitalization tie', 'general oval']
+Number  7  haiku is: 
+['inconsistencies', 'identification sponge', 'evaporated']
+Number  8  haiku is: 
+['inconsistencies', 'identification fill', 'less rectified its']
+Number  9  haiku is: 
+['oftener there half', 'possibilities round meat', 'oven healthier']
+Number  10  haiku is: 
+['whatever severe', 'oh neapolitan bake', 'neither user may']
+-- GOT SCORES:  1000
+[[436, 0.8888888888888888], [227, 0.875], [264, 0.875], [484, 0.875], [130, 0.8571428571428571], [11, 0.8], [483, 0.8], [967, 0.8], [876, 0.7777777777777778], [611, 0.75]]
+Number  1  haiku is: 
+['discontinue each', 'trim must accept every', 'will its there five ring']
+Number  2  haiku is: 
+['evaporated', 'substitutes rancid reverse', 'distributed wring']
+Number  3  haiku is: 
+['decorate taxes', 'inconsistencies prepare', 'divided ground why']
+Number  4  haiku is: 
+['oven its treasure', 'any bottle border trim', 'paprika its both']
+Number  5  haiku is: 
+['redistributing', 'la identification', 'clarified fried quite']
+Number  6  haiku is: 
+['states look updated', 'inconsistencies liquor', 'softer pineapple']
+Number  7  haiku is: 
+['add preparation', 'marmalade artificial', 'hem explanations']
+Number  8  haiku is: 
+['every project', 'pistachio another', 'i follows pretty']
+Number  9  haiku is: 
+['oven decided', 'peculiarities start', 'arrange oftener']
+Number  10  haiku is: 
+['substituting half', 'discontinue every', 'rises its there sure']
+-- GOT SCORES:  1000
+[[124, 0.9], [522, 0.8571428571428571], [183, 0.8333333333333334], [611, 0.8181818181818182], [289, 0.8], [281, 0.7142857142857143], [104, 0.6666666666666666], [462, 0.6666666666666666], [672, 0.6666666666666666], [675, 0.6666666666666666]]
+Number  1  haiku is: 
+['every nutmeg', 'another yeast must relieve', 'or sufficient there']
+Number  2  haiku is: 
+['another brown pan', 'sweets fluid limitation', 'repetitions change']
+Number  3  haiku is: 
+['add story contract', 'inconsistencies lump lay', 'been pigeon might who']
+Number  4  haiku is: 
+['longer turkey fruit', 'raspberries soup farina', 'oh cauliflower']
+Number  5  haiku is: 
+['add bicarbonate', 'booklets separate halfway', 'follows its above']
+Number  6  haiku is: 
+['solicitation', 'peculiarities sweet', 'easiest hope who']
+Number  7  haiku is: 
+['who gradually', 'accomplished corrections fry', 'down skim easiest']
+Number  8  haiku is: 
+['diminishes its', 'garnished illustrations know', 'neapolitan']
+Number  9  haiku is: 
+['only mixture mix', 'possibility baba', 'directions carrot']
+Number  10  haiku is: 
+['spread goodness subjects', 'evaporates oftener', 'three may squeeze there round']
+-- GOT SCORES:  1000
+[[886, 0.9], [109, 0.8888888888888888], [369, 0.8888888888888888], [722, 0.8888888888888888], [122, 0.875], [316, 0.8], [96, 0.75], [267, 0.75], [118, 0.7142857142857143], [303, 0.7142857142857143]]
