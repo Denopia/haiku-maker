@@ -134,11 +134,9 @@ System will print out some information during run:
 		all top haiku in files named  --> alice_top_150_haiku_of_1000*
 		all top scores in files named --> alice_top_150_scores_of_1000*
 
-System will generate some nubmer of output files to running directory. These files contain all haiku generated in each loop. Top scored haiku per each loop. And top scores for top scored haiku in each loop (row-number and score).
+System will generate some number of output files to running directory. These files contain all haiku generated in each loop. Top scored haiku per each loop. And top scores for top scored haiku in each loop (row-number and score).
 
 Two bug were found during running. These were recognized to be related to small corpus.
-
-Sorry! The below list of libraries is more readable in "edit" mode. Or you can try 'Raw'.
 
 # packages in environment at /home/ittobor/anaconda3/envs/cc:
 
