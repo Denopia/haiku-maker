@@ -1,6 +1,6 @@
 # haiku-maker
 
-##Project description
+## Project description
 
 Haiku Maker is a system for creating haiku poems. The basic idea
 of the system is to generate a batch of haiku and then evaluate
