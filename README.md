@@ -138,6 +138,8 @@ System will generate some nubmer of output files to running directory. These fil
 
 Two bug were found during running. These were recognized to be related to small corpus.
 
+Sorry! The below list of libraries is more readable in "edit" mode. Or you can try 'Raw'.
+
 # packages in environment at /home/ittobor/anaconda3/envs/cc:
 #
 aiomas                    1.0.3                     <pip>
